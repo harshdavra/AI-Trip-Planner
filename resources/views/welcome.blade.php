@@ -8,15 +8,30 @@
     <link rel="stylesheet" href="{{asset('css/style.css') }}">
 </head>
 <body>
-    <div>
-        <nav>
-            <div>
-                <img src="{{asset('images/road-map.png') }}" alt="" srcset="">
-                <h4>Plan-Your-Trip</h4>
+    <div class="align-items-center justify-content-center">
+        <nav class="d-flex align-items-center justify-content-between p-2 navbar">
+            <div class="d-flex align-items-center gap-2 ms-5">
+                <img src="{{asset('images/road-map.png') }}" alt="" srcset="" class="img-fluid">
+                <h4 class="m-0">Plan-Your-Trip</h4>
             </div>
-            <h4>Trending Trips</h4>
-
+            <h5 class="m-0 me-5">Trending Trips</h4>
         </nav>
+        <div class="content d-flex justify-content-center flex-column align-items-center gap-4 mt-4">
+            <div class="planner d-flex align-items-center gap-3">
+                <img src="{{asset('images/Ai-harsh.jpg')}}" alt="">
+                <h2 class="Ai-name m-0">Harsh</h2>
+            </div>
+            <div class="content-title text-center mt-4">
+                <p>Book Flights stay in top <br>Hotels & find new experiences</p>
+            </div>
+            <div class="create-trip-btn">
+    <button class="btn btn-success d-flex align-items-center gap-2">
+        <img src="{{asset('images/road-map-location.png')}}" alt="">
+        Create Your Trip
+    </button>
+</div>
+
+        </div>
     </div>
     
 </body>
