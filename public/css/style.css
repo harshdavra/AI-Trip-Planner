@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
@@ -8,10 +9,12 @@
 }
 body{
     align-items: center;
+    justify-content: center;
     margin: 0;
     padding: 0;
     height: 100vh;
 }
+
 .navbar img{
     height: 50px;
 }
@@ -62,3 +65,55 @@ body{
 .create-trip-btn img{
     height: 35px;
 }
+.trip-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.trip-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.trip-body {
+    padding: 16px;
+}
+
+.trip-body h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.trip-tags {
+    display: flex;
+    gap: 10px;
+}
+
+.tag {
+    background: #f1f1f1;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+}
+.trending-trip {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    max-width: 1200px;   /* desktop max */
+    width: 100%;         /* mobile-friendly */
+
+    padding: 20px;
+    margin: 40px auto;   /* normal spacing */
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+
+
+
