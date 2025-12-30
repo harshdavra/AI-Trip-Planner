@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Yellowtail&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -11,17 +12,8 @@ body {
     justify-content: center;
     margin: 0;
     padding: 0;
-    background-image: url("../images/airplanee.jpg");
-    background-size: 700px;        /* cover full screen */
-    background-position: center;   /* keep centered */
-    background-repeat: no-repeat;
-    background-attachment: fixed;  /* stops image from scrolling */
     height:100vh;
-    inset: 0;
-}
-.box{
-    backdrop-filter: blur(5px);
-    background-color: rgba(209, 209, 209, 0.25); /* dark glass effect */
+    overflow-x: hidden;
 }
 .navbar {
     background: rgba(180, 180, 180, 0.38);
@@ -37,7 +29,7 @@ body {
 }
 .navbar h4 {
     font-family: "Yellowtail", cursive;
-    font-weight: 400;
+    font-weight: 600;
     font-style: normal;
 }
 .navbar h5 {
@@ -56,9 +48,7 @@ body {
     font-size: 40px;
     color: rgb(255, 195, 116);
 }
-.content{
-    
-}
+
 .content-title p {
     font-size: 60px;
     font-family: "Roboto Condensed", sans-serif;
@@ -92,9 +82,9 @@ body {
     width: 100%;
     padding: 20px 20px 50px 20px;
     margin: 100px 0px auto;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+
     background-color:#f1f1f1;
-    border: 2px solid rgba(0, 0, 0, 0.256);
+  
     border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(
@@ -107,9 +97,7 @@ body {
     grid-column: 1/-1;
     text-align: center;
     margin-bottom: 40px;
-
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-        sans-serif;
+    font-weight: 100;
 }
 
 .trip-card {
@@ -135,8 +123,8 @@ body {
 }
 
 .trip-body h4 {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
     margin-bottom: 12px;
 }
 
@@ -153,27 +141,59 @@ body {
     color: #333;
 }
 .trip-topic{
-    margin: 100px 0px auto;
+    margin-top: 100px; 
 }
 .trip-topic h1{
     margin-bottom: 40px;
-    
+    font-weight:100;
+    font-style: italic;
+    font-size: ;
 }
 .trip-topic p{
     max-width: 600px;
+    border-radius: 20px 0 20px 0;
     width: auto;
-    background-color: #d4d4d4;
+    background-color: #e7e7e7;
     text-align: justify;
+    padding: 10px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 500;
 }
+.topics {
+  max-width: 900px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.topic-item {
+  max-width: 500px;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.topic-item h4 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+
+/* Left & Right alignment (desktop) */
+.topic-item.left {
+  align-self: flex-start;
+}
+
+.topic-item.right {
+  align-self: flex-end;
+  text-align: right;
+}
+
+
 
 @media (max-width: 596px) {
     .navbar {
-        background: rgba(180, 180, 180, 0.38);
-        border-radius: 0 0 20px 20px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10.3px) saturate(180%);
-        -webkit-backdrop-filter: blur(10.3px) saturate(180%);
-        border: 1px solid rgba(62, 62, 62, 0.97);
+
         justify-content: center;
     }
     .navbar .nav-logo {
@@ -193,7 +213,8 @@ body {
     }
     .trending-trip{
           grid-template-columns: repeat(2, 1fr);
-          border-radius: 0%;
+          border-radius: 0;
+          
     }
        .trip-tags .tag {
         font-size: 14px;
@@ -202,9 +223,24 @@ body {
     .trip-body h4{
         font-size: 15px;
     }
-    .trip-topic p{
-    
-    }
+      .topic-item {
+    max-width: 100%;
+    align-self: center !important;
+}
+.trip-topic h1{
+    font-size: 21px;
+}
+.trip-topic p{
+    font-size: 15px;
+}
+.trip-topic-why p{
+    background-color:transparent;
+    border: 2px solid rgb(96, 96, 96);
+    width: 350px;
+}
+.topic-item h4{
+    font-size: 18px;
+}
 }
 @media (max-width: 476px) {
     .navbar {
@@ -215,6 +251,7 @@ body {
         font-size: 30px;
         padding: 0 6px 0 6px;
     }
+
 
  
 }
