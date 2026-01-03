@@ -29,7 +29,7 @@
                 <p>Book Flights stay in top <br>Hotels & find new experiences</p>
             </div>
             <div class="create-trip-btn">
-                <button class="btn btn-success d-flex align-items-center gap-2">
+                <button onclick="window.location='{{ route('create.trip') }}'" class="btn btn-success d-flex align-items-center gap-2">
                     <img src="{{asset('images/road-map-location.png')}}" alt="">
                     Create Your Trip
                 </button>
@@ -112,7 +112,7 @@
 
         <div class="trip-topic">
             <div class="trip-topic-why d-flex flex-column align-items-center">
-                <h1>📷 Why You Go On a Trip? 📷</h1>
+                <h1>📷 Why Should You Go On a Trip? 📷</h1>
                 <p class="p-3">Travel allows you to take a break from everyday life and refresh your mind and body. It helps you explore new cultures, gain new perspectives, and build confidence through new experiences. Every journey creates lasting memories that enrich your life and inspire personal growth.</p>
             </div>
             <div class="topics">
