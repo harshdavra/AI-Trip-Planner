@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    height:100vh;
+    overflow-x: hidden;
+}
+.card{
+    width: 100% ;
+    max-width: 700px;
+}
+.card .destination input{
+      border: 1px solid rgb(88, 88, 88);
+}
+.card .form-select{
+      border: 1px solid rgb(88, 88, 88);
+}
+
+.interest input{
+    border: 2px solid rgb(88, 88, 88);
+}
+
+
