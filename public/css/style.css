@@ -192,7 +192,6 @@ body {
 
 @media (max-width: 596px) {
     .navbar {
-
         justify-content: center;
     }
     .navbar .nav-logo {
