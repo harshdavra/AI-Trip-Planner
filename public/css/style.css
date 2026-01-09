@@ -97,7 +97,7 @@ body {
     grid-column: 1/-1;
     text-align: center;
     margin-bottom: 40px;
-    font-weight: 100;
+    font-weight: 400;
 }
 
 .trip-card {
@@ -145,7 +145,7 @@ body {
 }
 .trip-topic h1{
     margin-bottom: 40px;
-    font-weight:100;
+    font-weight:400;
     font-style: italic;
 }
 .trip-topic p{
@@ -211,8 +211,7 @@ body {
     }
     .trending-trip{
           grid-template-columns: repeat(2, 1fr);
-          border-radius: 0;
-          
+          border-radius: 0;     
     }
        .trip-tags .tag {
         font-size: 14px;
@@ -226,7 +225,7 @@ body {
     align-self: center !important;
 }
 .trip-topic h1{
-    font-size: 21px;
+    font-size: 19px;
 }
 .trip-topic p{
     font-size: 15px;
@@ -238,9 +237,9 @@ body {
 }
 .topic-item h4{
     font-size: 18px;
+    }
 }
-}
-@media (max-width: 476px) {
+@media (max-width: 440px) {
     .navbar {
         padding: 3px;
         border-radius: 0 0 10px 10px;

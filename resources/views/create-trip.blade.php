@@ -2,7 +2,7 @@
 <html>
 
 <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Trip Planner</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,12 +10,15 @@
     <link rel="stylesheet" href="{{asset('css/style1.css') }}">
 </head>
 
-<body class="bg-light">
-    <div class="d-flex align-items-center flex-column py-4">
-        <div class="text-center mb-4">
-            <h1 class="fw-bold">AI Trip Planner</h1>
-            <p class="text-muted">
-                Plan your perfect trip with smart AI recommendations based on your preferences.
+<body>
+    <div class="d-flex align-items-center flex-column py-3">
+        <div class="heading text-center mb-4">
+            <div class="d-flex align-items-center gap-2 justify-content-center">
+                <img src="{{asset('images/flight.png')}}" alt="" class="img-fluid">
+                <h1 class="fw-bold m-0">Plan Your Trip</h1>
+            </div>
+            <p class="text-primary mt-2">
+                Plan your perfect trip with smart AI recommendations.
             </p>
         </div>
 
@@ -86,14 +89,86 @@
                     </div>
                 </div>
 
-                <div class="text-center mt-3">
-                    <button class="btn btn-success px-4 rounded-pill">
+                <div class="search-trip-btn text-center mt-3">
+                    <button class="btn btn-primary px-4 rounded-pill">
                         <i class="bi bi-stars"></i> Search Trip
                     </button>
                 </div>
             </form>
         </div>
-
+        <div class="recent-trip">
+            <h1>Recently Created Trip</h1>
+            <div class="trip-card">
+                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
+                <div class="trip-body">
+                    <h4>6 Days Adventure in Chile</h4>
+                    <div class="trip-tags">
+                        <span class="tag">6 days</span>
+                        <span class="tag">Chile</span>
+                    </div>
+                </div>
+            </div>
+            <div class="trip-card">
+                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
+                <div class="trip-body">
+                    <h4>6 Days Adventure in Chile</h4>
+                    <div class="trip-tags">
+                        <span class="tag">6 days</span>
+                        <span class="tag">Chile</span>
+                    </div>
+                </div>
+            </div>
+            <div class="trip-card">
+                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
+                <div class="trip-body">
+                    <h4>6 Days Adventure in Chile</h4>
+                    <div class="trip-tags">
+                        <span class="tag">6 days</span>
+                        <span class="tag">Chile</span>
+                    </div>
+                </div>
+            </div>
+            <div class="trip-card">
+                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
+                <div class="trip-body">
+                    <h4>6 Days Adventure in Chile</h4>
+                    <div class="trip-tags">
+                        <span class="tag">6 days</span>
+                        <span class="tag">Chile</span>
+                    </div>
+                </div>
+            </div>
+            <div class="trip-card">
+                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
+                <div class="trip-body">
+                    <h4>6 Days Adventure in Chile</h4>
+                    <div class="trip-tags">
+                        <span class="tag">6 days</span>
+                        <span class="tag">Chile</span>
+                    </div>
+                </div>
+            </div>
+            <div class="trip-card">
+                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
+                <div class="trip-body">
+                    <h4>6 Days Adventure in Chile</h4>
+                    <div class="trip-tags">
+                        <span class="tag">6 days</span>
+                        <span class="tag">Chile</span>
+                    </div>
+                </div>
+            </div>
+            <div class="trip-card">
+                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
+                <div class="trip-body">
+                    <h4>6 Days Adventure in Chile</h4>
+                    <div class="trip-tags">
+                        <span class="tag">6 days</span>
+                        <span class="tag">Chile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

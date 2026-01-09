@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+       
+
+@import url("https://fonts.googleapis.com/css2?family=Yellowtail&display=swap");
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     align-items: center;
     justify-content: center;
@@ -11,9 +18,24 @@ body {
     height:100vh;
     overflow-x: hidden;
 }
+.heading img{
+    height: 50px;
+    filter: saturate(3);
+}
+.heading h1{
+    font-family: "Yellowtail", cursive;
+    font-weight: 600;
+    font-style: normal;
+}
+.heading p{
+    font-weight: 500;
+    font-size: 20px;
+    text-align: justify;
+    
+}
 .card{
-    width: 100% ;
-    max-width: 700px;
+    width: 100%;
+    max-width: 800px;
 }
 .card .destination input{
       border: 1px solid rgb(88, 88, 88);
@@ -21,9 +43,153 @@ body {
 .card .form-select{
       border: 1px solid rgb(88, 88, 88);
 }
-
+.card .form-label{
+      font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+    
+}
+.interest{
+        background:#f2f2f2;
+        padding: 12px;
+        border-radius: 12px;
+    }
 .interest input{
     border: 2px solid rgb(88, 88, 88);
 }
 
+    .interest .form-check-label{
+            font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    }
 
+.search-trip-btn button {
+    font-weight: 500;
+    border-radius: 50px;
+    border: 2px solid whitesmoke;
+    padding: 15px 25px;
+    position: relative;
+
+}
+.search-trip-btn button::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    pointer-events: none;
+    border: 3px solid whitesmoke;
+    border-radius: 50px;
+}
+.recent-trip {
+    max-width: 1000px;
+    width: 100%;
+    padding: 20px 20px 50px 20px;
+    margin: 100px 0px auto;
+
+    background-color:#f1f1f1;
+  
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 2fr)
+    ); /* smaller cards */
+    gap: 20px;
+}
+
+.recent-trip h1 {
+    grid-column: 1/-1;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+.trip-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    max-width: 200px; /* prevents too-big cards */
+    margin: auto;
+}
+
+.trip-card img {
+    margin: auto;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* always square */
+    object-fit: cover;
+    display: block;
+    height: 100px;
+}
+
+.trip-body {
+    padding: 12px;
+}
+
+.trip-body h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.trip-tags {
+    display: flex;
+    gap: 10px;
+}
+
+.tag {
+    background: #f1f1f1;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+}
+@media (max-width:1024px) {
+    .card{
+        max-width: 800px;
+    }
+}
+@media (max-width:830px) {
+    .card{
+        max-width: 750px;
+        box-shadow: none !important;
+    }
+
+    .heading p{
+        padding: 0 10px 0 10px;
+    }
+    .form-select, .form-control{
+        height: 48px;
+        border-radius: 12px;
+    }
+    
+    .interest .form-check-label{
+        font-weight: 500;
+    }
+    .interest .form-check-input{
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+}
+@media (max-width:440px) {
+    .card{
+        border: none;
+        padding: 15px !important;
+    }
+
+      .interest .form-check-label{
+            font-size: 15px;
+    }
+    .recent-trip{
+          grid-template-columns: repeat(2, 1fr);
+          border-radius: 0px
+          
+    }
+       .trip-tags .tag {
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+    .trip-body h4{
+        font-size: 15px;
+    }
+}
