@@ -11,18 +11,18 @@
 </head>
 
 <body>
-    <div class="d-flex align-items-center flex-column py-3">
-        <div class="heading text-center mb-4">
+    <div class="d-flex align-items-center flex-column py-2">
+        <div class="heading  mb-3">
             <div class="d-flex align-items-center gap-2 justify-content-center">
                 <img src="{{asset('images/flight.png')}}" alt="" class="img-fluid">
                 <h1 class="fw-bold m-0">Plan Your Trip</h1>
             </div>
-            <p class="text-primary mt-2">
+            <p id="text" class="text-primary mt-2">
                 Plan your perfect trip with smart AI recommendations.
             </p>
         </div>
 
-        <div class="card shadow p-4">
+        <div class="card p-4">
             <form>
                 <div class="row">
                     <!-- LEFT SIDE -->
@@ -169,8 +169,9 @@
                 </div>
             </div>
         </div>
+        @extends('inc.footer')
     </div>
-
+ <script src="{{asset('js/script.js')}}"></script>
 </body>
 
 </html>

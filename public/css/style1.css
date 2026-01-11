@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-       
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Yellowtail&display=swap");
 
 
@@ -28,20 +27,38 @@ body {
     font-style: normal;
 }
 .heading p{
-    font-weight: 500;
-    font-size: 20px;
-    text-align: justify;
-    
+    font-size: 25px;
+    text-align: left;
+    font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+.word {
+    visibility: hidden; /* Takes up space but stays invisible */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.word.visible {
+    visibility: visible;
+    opacity: 1;
 }
 .card{
     width: 100%;
     max-width: 800px;
+    border: none;
 }
 .card .destination input{
-      border: 1px solid rgb(88, 88, 88);
+      padding: 10px 25px 10px 25px;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px 0px;
+      border-radius: 20px;
+      
 }
 .card .form-select{
-      border: 1px solid rgb(88, 88, 88);
+    border-radius: 20px;
+          padding: 10px 25px 10px 25px;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px 0px;
 }
 .card .form-label{
       font-family: "Work Sans", sans-serif;
@@ -53,22 +70,26 @@ body {
 .interest{
         background:#f2f2f2;
         padding: 12px;
-        border-radius: 12px;
+        border-radius: 20px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     }
 .interest input{
-    border: 2px solid rgb(88, 88, 88);
+    border: 1px solid rgba(117, 117, 117, 0.507);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
     .interest .form-check-label{
             font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
+        font-weight: 100;
     }
 
 .search-trip-btn button {
     font-weight: 500;
     border-radius: 50px;
     border: 2px solid whitesmoke;
-    padding: 15px 25px;
+    padding: 15px 20px;
+    font-size: 20px;
     position: relative;
 
 }
@@ -144,21 +165,13 @@ body {
     color: #333;
 }
 @media (max-width:1024px) {
-    .card{
-        max-width: 800px;
-    }
-}
-@media (max-width:830px) {
-    .card{
-        max-width: 750px;
-        box-shadow: none !important;
-    }
-
+   
     .heading p{
         padding: 0 10px 0 10px;
+    
     }
     .form-select, .form-control{
-        height: 48px;
+        height: 60px;
         border-radius: 12px;
     }
     
@@ -192,4 +205,19 @@ body {
     .trip-body h4{
         font-size: 15px;
     }
+    .heading p{
+        text-align: left;
+        font-weight: 500;  
+        background-color: #efefef;
+        border-radius: 0 50px 50px 0;
+        margin: 0 30px 0 0; 
+        border: 5px solid rgb(222, 232, 251);
+        box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+        border-left: none;
+        font-size: 18px;
+    }
+    .search-trip-btn button {
+    width: 100%;
+
+}
 }
