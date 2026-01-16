@@ -9,3 +9,4 @@ Route::get('/', function () {
 
 Route::get('/create-trip',[TripController::class,'create'])
     ->name('create.trip');
+Route::view('/itinerary-design', 'itinerary');

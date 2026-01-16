@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{asset('css/style1.css') }}">
 </head>
-
 <body>
     <div class="d-flex align-items-center flex-column py-2">
         <div class="heading  mb-3">

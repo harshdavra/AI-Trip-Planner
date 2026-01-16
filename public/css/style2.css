@@ -1,0 +1,20 @@
+.card-header {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 15px 20px;
+    background-color: #fcfcfc;
+    margin-bottom: 5px;
+    border-radius: 8px;
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
