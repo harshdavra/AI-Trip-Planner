@@ -19,116 +19,22 @@
 
         <div class="trending-trip">
             <h1>Trending-Trips</h1>
+            @foreach($trendingTrips as $trip)
             <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
+            {{-- Image uses the AI keyword --}}
+            <img src="https://images.unsplash.com/featured/?{{ $trip['image_keyword'] }},travel" alt="{{ $trip['location'] }}">
+            
+            <div class="trip-body">
+                {{-- Example Result: 4 days Solo Trip --}}
+                <h4>{{ $trip['duration'] }} {{ $trip['trip_type'] }}</h4>
+                
+                <div class="trip-tags">
+                    <span class="tag">{{ $trip['duration'] }}</span>
+                    <span class="tag">{{ $trip['location'] }}</span>
                 </div>
             </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="trip-card">
-                <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
-                <div class="trip-body">
-                    <h4>6 Days Adventure in Chile</h4>
-                    <div class="trip-tags">
-                        <span class="tag">6 days</span>
-                        <span class="tag">Chile</span>
-                    </div>
-                </div>
-            </div>
+        </div>
+            @endforeach
         </div>
 
         <div class="trip-topic">
