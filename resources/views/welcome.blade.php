@@ -22,7 +22,7 @@
             @foreach($trendingTrips as $trip)
             <div class="trip-card">
             {{-- Image uses the AI keyword --}}
-            <img src="https://images.unsplash.com/featured/?{{ $trip['image_keyword'] }},travel" alt="{{ $trip['location'] }}">
+            <img src="{{ $trip['image_url'] }}" alt="{{ $trip['location'] }}">
             
             <div class="trip-body">
                 {{-- Example Result: 4 days Solo Trip --}}

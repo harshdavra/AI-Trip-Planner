@@ -4,43 +4,80 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Gemini; // This connects to the Google Gemini package
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class TripController extends Controller
 {
    public function index()
-{
-    $apiKey = env('GEMINI_API_KEY');
-    $client = Gemini::client($apiKey);
-    $model = $client->generativeModel('gemini-1.5-flash');
+    {
+        $geminiKey = env('GEMINI_API_KEY');
+        $unsplashKey = env('UNSPLASH_ACCESS_KEY');
 
-    $prompt = "Generate 10 trending travel destinations for 2026. 
-               Return ONLY a JSON array of 10 objects. 
-               
-               Rules:
-               1. 'duration': Pick a random number between 1 and 10 followed by 'days' (e.g., '4 days').
-               2. 'trip_type': Pick one ONLY from: Family Trip, Friends Trip, Solo Trip, Couple Trip, Honeymoon Trip.
-               3. 'location': A city or country name.
-               4. 'image_keyword': A keyword for the image search.
+        // 1. Validate Keys
+        if (!$geminiKey || !$unsplashKey) {
+            return "Error: Please set GEMINI_API_KEY and UNSPLASH_ACCESS_KEY in your .env file.";
+        }
 
-               JSON Format: {'duration': '...', 'trip_type': '...', 'location': '...', 'image_keyword': '...'}";
+        try {
+            // 2. Setup Gemini
+            $client = Gemini::client($geminiKey);
+            $model = $client->generativeModel('gemini-2.5-flash-lite');
 
-    try {
-        $result = $model->generateContent($prompt);
-        $cleanJson = trim(str_replace(['```json', '```'], '', $result->text()));
-        $trendingTrips = json_decode($cleanJson, true);
-    } catch (\Exception $e) {
-        // Backup if AI fails
-        $trendingTrips = array_fill(0, 10, [
-            'duration' => '6 days',
-            'trip_type' => 'Family Trip',
-            'location' => 'Chile',
-            'image_keyword' => 'chile'
-        ]);
+            $prompt = "Generate 10 trending travel destinations for 2026. 
+                       Return ONLY a raw JSON array of 10 objects. 
+                       Rules:
+                       1. 'duration': 1-10 + ' days'.
+                       2. 'trip_type': ONE of [Family Trip, Friends Trip, Solo Trip, Couple Trip, Honeymoon Trip].
+                       3. 'location': City or Country name.
+                       4. 'image_keyword': MUST be a single word only (e.g., 'paris').";
+
+            $result = $model->generateContent($prompt);
+            $responseText = $result->text();
+
+            // 3. Clean JSON (Regex ensures we only get the array [ ... ])
+            preg_match('/\[.*\]/s', $responseText, $matches);
+            $cleanJson = $matches[0] ?? $responseText;
+            $trendingTrips = json_decode($cleanJson, true);
+
+            if (!is_array($trendingTrips)) {
+                throw new \Exception("Gemini failed to produce a valid JSON array.");
+            }
+
+            // 4. Fetch Images from Unsplash
+            foreach ($trendingTrips as &$trip) {
+                // 'withoutVerifying()' fixes the "Catch Block" issue on local XAMPP/WAMP
+                $response = Http::withoutVerifying()->get('https://api.unsplash.com/search/photos', [
+                    'query'     => $trip['image_keyword'],
+                    'client_id' => $unsplashKey,
+                    'per_page'  => 1,
+                    'orientation' => 'landscape'
+                ]);
+
+                if ($response->successful()) {
+                    $data = $response->json();
+                    // Unsplash path: results -> 0 -> urls -> regular
+                    $trip['image_url'] = $data['results'][0]['urls']['regular'] ?? 'https://images.unsplash.com/photo-1501785888041-af3ef285b470';
+                } else {
+                    $trip['image_url'] = 'https://images.unsplash.com/photo-1501785888041-af3ef285b470';
+                }
+            }
+
+        } catch (\Exception $e) {
+            // Log the actual error to storage/logs/laravel.log so you can debug
+            Log::error("Travel App Failure: " . $e->getMessage());
+
+            // Fallback Data so the user sees SOMETHING
+            $trendingTrips = array_fill(0, 10, [
+                'duration' => '5 days',
+                'trip_type' => 'Solo Trip',
+                'location' => 'Paris, France',
+                'image_url' => 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34'
+            ]);
+        }
+
+        return view('welcome', compact('trendingTrips'));
     }
-
-    return view('welcome', compact('trendingTrips'));
-}
-
     public function create()
     {
         return view('create-trip');
@@ -51,69 +88,96 @@ class TripController extends Controller
      */
 public function showItinerary(Request $request)
 {
-    // 1. Force validation (This stops the redirect if fields are empty)
     $request->validate([
         'destination' => 'required',
         'days' => 'required',
         'trip_type' => 'required',
-        'interests' => 'required|array|min:1' // User must pick at least 1 interest
+        'interests' => 'required|array|min:1'
     ]);
 
-    $apiKey = env('GEMINI_API_KEY');
-    $client = Gemini::client($apiKey);
+    $geminiKey = env('GEMINI_API_KEY');
+    $unsplashKey = env('UNSPLASH_ACCESS_KEY');
+    $client = Gemini::client($geminiKey);
     
-    // 2. Capture inputs
     $dest = $request->input('destination');
     $days = $request->input('days');
     $type = $request->input('trip_type');
-    $interestsArray = $request->input('interests', []); 
-    $interestsString = implode(', ', $interestsArray);
+    $interestsString = implode(', ', $request->input('interests', []));
 
-        // Updated Prompt to force JSON format and include interests
-        $prompt = "Create a $days-day itinerary for a $type in $dest. 
-        The user is interested in: $interestsString.
-        Return the response ONLY as a JSON object with this exact structure:
-        {
-            \"destination\": \"$dest\",
-            \"duration\": \"$days Days\",
-            \"trip_type\": \"$type\",
-            \"schedule\": [
-                {\"day\": 1, \"title\": \"Day Title\", \"morning\": \"text\", \"highlight\": \"text\"}
-            ],
-            \"hotels\": [
-    {
-        \"name\": \"Hotel Name\", 
-        \"description\": \"Short desc\", 
-        \"image\": \"https://source.unsplash.com/800x600/?hotel,luxury,$dest\", 
-        \"link\": \"https://www.google.com/search?q=Booking.com+$dest+hotel\"
-    }
-]
-        }";
+    $prompt = "Create a $days-day itinerary for a $type in $dest. Interests: $interestsString. 
+               Return ONLY a JSON object:
+               {
+                   \"destination\": \"$dest\",
+                   \"duration\": \"$days Days\",
+                   \"trip_type\": \"$type\",
+                   \"schedule\": [
+                       {\"day\": 1, \"title\": \"Title\", \"morning\": \"text\", \"highlight\": \"text\"}
+                   ],
+                   \"hotels\": [
+                       {\"name\": \"Hotel Name\", \"description\": \"Short desc\", \"image_keyword\": \"luxury hotel $dest\"}
+                   ]
+               }";
 
-        $model = $client->generativeModel('gemini-2.5-flash-lite');
+    $model = $client->generativeModel('gemini-2.5-flash-lite');
 
-        try {
-            $result = $model->generateContent($prompt);
+    try {
+        $result = $model->generateContent($prompt);
+        $cleanJson = trim(str_replace(['```json', '```'], '', $result->text()));
+        $itineraryData = json_decode($cleanJson, true);
+
+        if (!isset($itineraryData['hotels'])) throw new \Exception("Invalid JSON");
+
+        // --- FETCH HOTEL IMAGES FROM UNSPLASH ---
+        foreach ($itineraryData['hotels'] as &$hotel) {
+            $query = $hotel['image_keyword'] ?? "hotel $dest";
             
-            // Clean the AI response (removes markdown backticks if present)
-            $responseText = $result->text();
-            $cleanJson = trim(str_replace(['```json', '```'], '', $responseText));
-            
-            $itineraryData = json_decode($cleanJson, true);
+            $response = Http::withoutVerifying()->get('https://api.unsplash.com/search/photos', [
+                'query'     => $query,
+                'client_id' => $unsplashKey,
+                'per_page'  => 1,
+            ]);
 
-            // If JSON parsing fails, throw an error
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new \Exception("AI returned invalid JSON format.");
+            if ($response->successful() && isset($response->json()['results'][0])) {
+                $hotel['image'] = $response->json()['results'][0]['urls']['regular'];
+            } else {
+                // Fallback image if Unsplash fails
+                $hotel['image'] = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800';
             }
-
-            // Pass the decoded array to your view
-            return view('itinerary', compact('itineraryData'));
             
-        } catch (\Exception $e) {
-            // Log the error for debugging
-            \Log::error("Gemini API Error: " . $e->getMessage());
-            
-            return back()->with('error', 'AI limit reached or error occurred. Please try again in 30 seconds.');
+            // Generate a direct booking search link
+            $hotel['link'] = "https://www.google.com/search?q=Booking.com+" . urlencode($hotel['name'] . " " . $dest);
         }
+
+        return view('itinerary', compact('itineraryData'));
+        
+    } catch (\Exception $e) {
+        Log::error("Itinerary Error: " . $e->getMessage());
+        return back()->with('error', 'Could not generate itinerary. Please try again.');
     }
+}
+public function autocomplete(Request $request)
+{
+    $query = $request->query('q');
+
+    try {
+        // We add timeout(5) so it doesn't hang forever
+        // We add withoutVerifying() to fix common local SSL issues
+        $response = Http::timeout(5)->withoutVerifying()->get('https://photon.komoot.io/api/', [
+            'q' => $query,
+            'type' => 'city', 
+            'limit' => 5
+        ]);
+
+        if ($response->successful()) {
+            return $response->json();
+        }
+
+        return response()->json(['features' => []], 500);
+
+    } catch (\Exception $e) {
+        // Logs the error so you can see it in storage/logs/laravel.log
+        \Log::error("Autocomplete failed: " . $e->getMessage());
+        return response()->json(['features' => []], 503);
+    }
+}
 }

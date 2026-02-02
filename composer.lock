@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e20fa5d58085cdd7efd6a2ba4a87ed67",
+    "content-hash": "6e300e0254f3615c1cc5cc3d2607dc3a",
     "packages": [
         {
             "name": "brick/math",
@@ -6147,6 +6147,71 @@
                 }
             ],
             "time": "2024-11-21T01:49:47+00:00"
+        },
+        {
+            "name": "xchimx/laravel-unsplash",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xchimx/laravel-unsplash.git",
+                "reference": "40e5a6b3e7339b9100a69a7d83b1cd137ba0cd3c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xchimx/laravel-unsplash/zipball/40e5a6b3e7339b9100a69a7d83b1cd137ba0cd3c",
+                "reference": "40e5a6b3e7339b9100a69a7d83b1cd137ba0cd3c",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "laravel/framework": "^9.0|^10.0|^11.0|^12.0",
+                "php": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Unsplash": "Xchimx\\UnsplashApi\\Facades\\Unsplash"
+                    },
+                    "providers": [
+                        "Xchimx\\UnsplashApi\\UnsplashServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Xchimx\\UnsplashApi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Schottstädt",
+                    "email": "code@schottstaedt.net",
+                    "homepage": "https://www.schottstaedt.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package for easy integration with the Unsplash API. It allows you to use the Unsplash API in your Laravel applications to fetch photos, collections, and user data.",
+            "homepage": "https://www.schottstaedt.net",
+            "keywords": [
+                "Tobias Schottstädt",
+                "Unsplash",
+                "api",
+                "images",
+                "laravel",
+                "laravel-unsplash",
+                "photos",
+                "schottstaedt.net"
+            ],
+            "support": {
+                "issues": "https://github.com/xchimx/laravel-unsplash/issues",
+                "source": "https://github.com/xchimx/laravel-unsplash"
+            },
+            "time": "2025-03-29T18:47:31+00:00"
         }
     ],
     "packages-dev": [
