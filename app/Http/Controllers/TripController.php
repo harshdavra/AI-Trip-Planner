@@ -157,27 +157,28 @@ public function showItinerary(Request $request)
 }
 public function autocomplete(Request $request)
 {
-    $query = $request->query('q');
+    $query = trim($request->query('q'));
+
+    if (strlen($query) < 3) {
+        return response()->json(['features' => []]);
+    }
 
     try {
-        // We add timeout(5) so it doesn't hang forever
-        // We add withoutVerifying() to fix common local SSL issues
-        $response = Http::timeout(5)->withoutVerifying()->get('https://photon.komoot.io/api/', [
-            'q' => $query,
-            'type' => 'city', 
-            'limit' => 5
-        ]);
+        $response = Http::timeout(5)
+            ->withoutVerifying()
+            ->get('https://photon.komoot.io/api/', [
+                'q' => $query,
+                'limit' => 5
+            ]);
 
-        if ($response->successful()) {
-            return $response->json();
-        }
-
-        return response()->json(['features' => []], 500);
+        return $response->successful()
+            ? $response->json()
+            : response()->json(['features' => []], 500);
 
     } catch (\Exception $e) {
-        // Logs the error so you can see it in storage/logs/laravel.log
-        \Log::error("Autocomplete failed: " . $e->getMessage());
+        \Log::error("Autocomplete failed: ".$e->getMessage());
         return response()->json(['features' => []], 503);
     }
 }
+
 }

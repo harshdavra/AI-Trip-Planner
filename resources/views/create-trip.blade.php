@@ -26,10 +26,10 @@
     @csrf
     <div class="row">
         <div class="col-md-6">
-            <div class="destination mb-3">
+            <div class="destination mb-3 position-relative">
                 <label class="form-label">Destination</label>
                 <input type="text" id="dest-input" name="destination" class="form-control" placeholder="Enter destination" required>
-                <div id="results-box" class="list-group position-absolute w-100 shadow-lg" style="display:none; z-index: 1000; top: 100%;"></div>
+                <div id="results-box" class="list-group position-absolute w-100 shadow-lg"></div>
             </div>
 
             <div class="mb-3">

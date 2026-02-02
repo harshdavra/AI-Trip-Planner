@@ -21,43 +21,78 @@ window.onload = function() {
     });
 };
 
-const input=document.getElementById('dest-input');
+
+const input = document.getElementById('dest-input');
 const resultsBox = document.getElementById('results-box');
-input.addEventListener('input', function() {
-    let val = this.value;
+
+let debounceTimer;
+
+input.addEventListener('input', function () {
+    clearTimeout(debounceTimer);
+
+    const val = this.value.trim();
     if (val.length < 3) {
         resultsBox.style.display = 'none';
         return;
     }
 
-    fetch(`/api/autocomplete?q=${val}`)
-        .then(res => res.json())
-        .then(data => {
-            resultsBox.innerHTML = ''; // Clear old results
-            resultsBox.style.display = 'block';
+    debounceTimer = setTimeout(() => {
+         resultsBox.innerHTML = `
+            <div class="list-group-item text-muted">
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Searching...
+            </div>`;
+        resultsBox.style.display = 'block';
 
-            data.features.forEach(feature => {
-                const city = feature.properties.name;
-                const country = feature.properties.country;
-                const fullText = `${city}, ${country}`;
+        fetch(`/api/autocomplete?q=${encodeURIComponent(val)}`)
+            .then(res => res.json())
+            .then(data => {
+                resultsBox.innerHTML = '';
+                resultsBox.style.display = 'block';
 
-                // Create the clickable item
-                let btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'list-group-item list-group-item-action border-0';
-                btn.innerHTML = `<i class="bi bi-geo-alt-fill text-muted me-2"></i><strong>${city}</strong>, <small class="text-secondary">${country}</small>`;
-                
-                btn.onclick = function() {
-                    input.value = fullText;
-                    resultsBox.style.display = 'none';
-                };
+                if (!data.features || data.features.length === 0) {
+                    resultsBox.innerHTML = `
+                        <div class="list-group-item text-muted">
+                            No destinations found
+                        </div>`;
+                    return;
+                }
 
-                resultsBox.appendChild(btn);
+                data.features.forEach(feature => {
+                    const city = feature.properties.name;
+                    const country = feature.properties.country || '';
+                    const fullText = country ? `${city}, ${country}` : city;
+
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'list-group-item list-group-item-action border-0';
+                    btn.innerHTML = `
+                        <i class="bi bi-geo-alt-fill text-muted me-2"></i>
+                        <strong>${city}</strong>
+                        ${country ? `<small class="text-secondary">, ${country}</small>` : ''}
+                    `;
+
+                    btn.onclick = () => {
+                        input.value = fullText;
+                        resultsBox.style.display = 'none';
+                    };
+
+                    resultsBox.appendChild(btn);
+                });
+            })
+            .catch(() => {
+                resultsBox.innerHTML = `
+                    <div class="list-group-item text-danger">
+                        Error loading destinations
+                    </div>`;
             });
-        });
+    }, 120); // debounce delay
 });
 
-// Close dropdown if user clicks elsewhere
+// Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
-    if (e.target !== input) resultsBox.style.display = 'none';
+    if (!e.target.closest('.destination')) {
+        resultsBox.style.display = 'none';
+    }
 });
+
