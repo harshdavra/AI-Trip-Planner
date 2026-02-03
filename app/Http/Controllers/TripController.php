@@ -22,7 +22,7 @@ class TripController extends Controller
         try {
             // 2. Setup Gemini
             $client = Gemini::client($geminiKey);
-            $model = $client->generativeModel('gemini-2.5-flash-lite');
+            $model = $client->generativeModel('gemini-2.5-flash');
 
             $prompt = "Generate 10 trending travel destinations for 2026. 
                        Return ONLY a raw JSON array of 10 objects. 
@@ -118,7 +118,7 @@ public function showItinerary(Request $request)
                    ]
                }";
 
-    $model = $client->generativeModel('gemini-2.5-flash-lite');
+    $model = $client->generativeModel('gemini-2.5-flash');
 
     try {
         $result = $model->generateContent($prompt);
