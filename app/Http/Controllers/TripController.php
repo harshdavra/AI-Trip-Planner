@@ -129,7 +129,7 @@ public function showItinerary(Request $request)
 
         // --- FETCH HOTEL IMAGES FROM UNSPLASH ---
         foreach ($itineraryData['hotels'] as &$hotel) {
-            $query = $hotel['image_keyword'] ?? "hotel $dest";
+            $query = ($hotel['image_keyword'] ?? '') . " hotel " . $dest;
             
             $response = Http::withoutVerifying()->get('https://api.unsplash.com/search/photos', [
                 'query'     => $query,

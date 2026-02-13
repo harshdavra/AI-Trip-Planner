@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{asset('css/style1.css') }}">
 </head>
+
 <body>
     <div class="d-flex align-items-center flex-column py-2">
         <div class="heading  mb-3">
@@ -23,76 +24,78 @@
 
         <div class="card p-4">
             <form action="{{ route('itinerary.post') }}" method="POST">
-    @csrf
-    <div class="row">
-        <div class="col-md-6">
-            <div class="destination mb-3 position-relative">
-                <label class="form-label">Destination</label>
-                <input type="text" id="dest-input" name="destination" class="form-control" placeholder="Enter destination" required>
-                <div id="results-box" class="list-group position-absolute w-100 shadow-lg"></div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Travel Days</label>
-                <select name="days" class="form-select" required>
-                    @for ($i = 1; $i <= 10; $i++)
-                        <option value="{{ $i }}">{{ $i }} Day{{ $i > 1 ? 's' : '' }}</option>
-                    @endfor
-                </select>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="mb-3">
-                <label class="form-label">Trip Type</label>
-                <select name="trip_type" class="form-select" required>
-                    <option value="Family Trip">Family Trip</option>
-                    <option value="Friends Trip">Friends Trip</option>
-                    <option value="Solo Trip">Solo Trip</option>
-                    <option value="Couple Trip">Couple Trip</option>
-                    <option value="Honeymoon Trip">Honeymoon Trip</option>
-                </select>
-            </div>
-
-            <div class="interest mb-3">
-                <label class="form-label">Interests</label>
+                @csrf
                 <div class="row">
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="interests[]" value="Adventure">
-                            <label class="form-check-label">Adventure</label>
+                    <div class="col-md-6">
+                        <div class="destination mb-3 position-relative">
+                            <label class="form-label">Destination</label>
+                            <input type="text" id="dest-input" name="destination" class="form-control" placeholder="Enter destination" required>
+                            <div id="results-box" class="list-group position-absolute w-100 shadow-lg"></div>
                         </div>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" name="interests[]" value="Food & Culture">
-                            <label class="form-check-label">Food & Culture</label>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="interests[]" value="Nature & Relax">
-                            <label class="form-check-label">Nature & Relax</label>
-                        </div>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" name="interests[]" value="Shopping">
-                            <label class="form-check-label">Shopping</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="interests[]" value="Historical">
-                    <label class="form-check-label">Historical</label>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="search-trip-btn text-center mt-3">
-        <button type="submit" class="btn btn-primary px-4 rounded-pill">
-            <i class="bi bi-stars"></i> Search Trip
-        </button>
-    </div>
-</form>      </div>
-        <div class="recent-trip">
+                        <div class="mb-3">
+                            <label class="form-label">Travel Days</label>
+                            <select name="days" class="form-select" required>
+                                @for ($i = 1; $i <= 10; $i++)
+                                    <option value="{{ $i }}">{{ $i }} Day{{ $i > 1 ? 's' : '' }}</option>
+                                    @endfor
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Trip Type</label>
+                            <select name="trip_type" class="form-select" required>
+                                <option value="Family Trip">Family Trip</option>
+                                <option value="Friends Trip">Friends Trip</option>
+                                <option value="Solo Trip">Solo Trip</option>
+                                <option value="Couple Trip">Couple Trip</option>
+                                <option value="Honeymoon Trip">Honeymoon Trip</option>
+                            </select>
+                        </div>
+
+                        <div class="interest mb-3">
+                            <label class="form-label">Interests</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="interests[]" value="Adventure">
+                                        <label class="form-check-label">Adventure</label>
+                                    </div>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" name="interests[]" value="Food & Culture">
+                                        <label class="form-check-label">Food & Culture</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="interests[]" value="Nature & Relax">
+                                        <label class="form-check-label">Nature & Relax</label>
+                                    </div>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" name="interests[]" value="Shopping">
+                                        <label class="form-check-label">Shopping</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" name="interests[]" value="Historical">
+                                <label class="form-check-label">Historical</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-trip-btn text-center mt-3">
+                    <button type="submit" class="btn btn-primary px-4 rounded-pill">
+                        <i class="bi bi-stars"></i> Search Trip
+                    </button>
+                </div>
+            </form>
+        </div>
+
+      <!--  <div class="recent-trip">
             <h1>Recently Created Trip</h1>
             <div class="trip-card">
                 <img src="{{asset('images/miami.jpg')}}" alt="Chile Trip">
@@ -164,10 +167,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         @extends('inc.footer')
     </div>
- <script src="{{asset('js/script.js')}}"></script>
+    <script src="{{asset('js/script.js')}}"></script>
 </body>
 
 </html>
