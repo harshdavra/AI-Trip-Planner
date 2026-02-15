@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Gemini; // This connects to the Google Gemini package
+use Gemini; 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -14,13 +14,13 @@ class TripController extends Controller
         $geminiKey = env('GEMINI_API_KEY');
         $unsplashKey = env('UNSPLASH_ACCESS_KEY');
 
-        // 1. Validate Keys
+        
         if (!$geminiKey || !$unsplashKey) {
             return "Error: Please set GEMINI_API_KEY and UNSPLASH_ACCESS_KEY in your .env file.";
         }
 
         try {
-            // 2. Setup Gemini
+        
             $client = Gemini::client($geminiKey);
             $model = $client->generativeModel('gemini-2.5-flash');
 
@@ -35,7 +35,7 @@ class TripController extends Controller
             $result = $model->generateContent($prompt);
             $responseText = $result->text();
 
-            // 3. Clean JSON (Regex ensures we only get the array [ ... ])
+           
             preg_match('/\[.*\]/s', $responseText, $matches);
             $cleanJson = $matches[0] ?? $responseText;
             $trendingTrips = json_decode($cleanJson, true);
@@ -44,9 +44,9 @@ class TripController extends Controller
                 throw new \Exception("Gemini failed to produce a valid JSON array.");
             }
 
-            // 4. Fetch Images from Unsplash
+ 
             foreach ($trendingTrips as &$trip) {
-                // 'withoutVerifying()' fixes the "Catch Block" issue on local XAMPP/WAMP
+        
                 $response = Http::withoutVerifying()->get('https://api.unsplash.com/search/photos', [
                     'query'     => $trip['image_keyword'],
                     'client_id' => $unsplashKey,
@@ -56,7 +56,7 @@ class TripController extends Controller
 
                 if ($response->successful()) {
                     $data = $response->json();
-                    // Unsplash path: results -> 0 -> urls -> regular
+              
                     $trip['image_url'] = $data['results'][0]['urls']['regular'] ?? 'https://images.unsplash.com/photo-1501785888041-af3ef285b470';
                 } else {
                     $trip['image_url'] = 'https://images.unsplash.com/photo-1501785888041-af3ef285b470';
@@ -64,10 +64,9 @@ class TripController extends Controller
             }
 
         } catch (\Exception $e) {
-            // Log the actual error to storage/logs/laravel.log so you can debug
+      
             Log::error("Travel App Failure: " . $e->getMessage());
 
-            // Fallback Data so the user sees SOMETHING
             $trendingTrips = array_fill(0, 10, [
                 'duration' => '5 days',
                 'trip_type' => 'Solo Trip',
@@ -83,9 +82,6 @@ class TripController extends Controller
         return view('create-trip');
     }
 
-    /**
-     * Generate the itinerary and show it in the design
-     */
 public function showItinerary(Request $request)
 {
     $request->validate([
@@ -127,7 +123,6 @@ public function showItinerary(Request $request)
 
         if (!isset($itineraryData['hotels'])) throw new \Exception("Invalid JSON");
 
-        // --- FETCH HOTEL IMAGES FROM UNSPLASH ---
         foreach ($itineraryData['hotels'] as &$hotel) {
             $query = ($hotel['image_keyword'] ?? '') . " hotel " . $dest;
             
@@ -140,11 +135,11 @@ public function showItinerary(Request $request)
             if ($response->successful() && isset($response->json()['results'][0])) {
                 $hotel['image'] = $response->json()['results'][0]['urls']['regular'];
             } else {
-                // Fallback image if Unsplash fails
+
                 $hotel['image'] = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800';
             }
             
-            // Generate a direct booking search link
+   
             $hotel['link'] = "https://www.google.com/search?q=Booking.com+" . urlencode($hotel['name'] . " " . $dest);
         }
 

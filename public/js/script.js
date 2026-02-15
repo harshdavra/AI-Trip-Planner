@@ -12,12 +12,11 @@ window.onload = function() {
         element.appendChild(span);
     });
 
-    // 2. Reveal them one by one
     const spans = element.querySelectorAll(".word");
     spans.forEach((span, index) => {
         setTimeout(() => {
             span.classList.add("visible");
-        }, index * 100); // Adjust speed here
+        }, index * 100); 
     });
 };
 
@@ -86,10 +85,9 @@ input.addEventListener('input', function () {
                         Error loading destinations
                     </div>`;
             });
-    }, 120); // debounce delay
+    }, 120); 
 });
 
-// Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.destination')) {
         resultsBox.style.display = 'none';

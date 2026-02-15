@@ -178,7 +178,7 @@ body {
 }
 
 
-/* Left & Right alignment (desktop) */
+
 .topic-item.left {
   align-self: flex-start;
 }
@@ -210,10 +210,10 @@ body {
 }
 
 .footer-links a:hover {
-    color: #0d6efd; /* Primary blue color */
+    color: #0d6efd; 
 }
 
-/* Social Icon Styling */
+
 .social-icons a {
     font-size: 24px;
     transition: transform 0.3s, color 0.3s;
